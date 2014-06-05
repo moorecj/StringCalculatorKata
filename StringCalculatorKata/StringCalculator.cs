@@ -8,5 +8,16 @@ namespace StringCalculatorKata
 {
     public class StringCalculator
     {
+
+        public int Add( string numbers )
+        {
+            if (String.IsNullOrWhiteSpace(numbers))
+            return 0;
+
+            var sum = Convert.ToInt32(numbers);
+
+            return sum;
+
+        }
     }
 }
