@@ -94,7 +94,38 @@ namespace StringCalculatorKataTests
        [Test]
        public void AddWithNegitive_ShouldThrowInvalidArgumentException()
        {
-           Assert.Throws<NegitiveNotAllowedExcetption>(() => calculator.Add("1,-1"));
+
+           var exception = Assert.Throws<NegitiveNotAllowedExcetption>(() => calculator.Add("1,-1"));
+           Assert.That(exception.Message, Is.EqualTo("Negitives not allowed: -1"));
+       
+       }
+
+       [Test]
+       public void AddWithMultipleNegitives_ShouldThrowInvalidArgumentExceptionWithAllNumbersInMessage()
+       {
+
+           var exception = Assert.Throws<NegitiveNotAllowedExcetption>(() => calculator.Add("1,-1,-2"));
+           Assert.That(exception.Message, Is.EqualTo("Negitives not allowed: -1 | -2"));
+
+       }
+
+       [Test]
+       public void AddWithNumberHigherThen1000_ShouldBeIgnored()
+       {
+
+           int sum = calculator.Add("2,1001");
+
+           Assert.That(sum, Is.EqualTo(2));
+           
+       }
+
+       [Test]
+       public void DelimetersOfAnyLengthCanBeUsed()
+       {
+           int sum = calculator.Add("//[***]\n1***2***3");
+
+           Assert.That(sum, Is.EqualTo(6));
+
        }
 
     }
