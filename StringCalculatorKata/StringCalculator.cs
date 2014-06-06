@@ -11,26 +11,20 @@ namespace StringCalculatorKata
 
         public int Add( string numbersString )
         {
-            var delimeters = new[] { ",", "\n" };
-            
+            var delimeters = new List<string>() { ",", "\n" };
 
             if(CustomDelimetersExist (numbersString ))
             {
-
-                delimeters = GetCustomDelimeters(numbersString);
-
+                delimeters.AddRange(GetCustomDelimeters(numbersString));
                 numbersString = TruncateDelimetersFromString(numbersString);
             }
-            
 
-            if (String.IsNullOrWhiteSpace(numbersString))
+            if ( String.IsNullOrWhiteSpace( numbersString ) )
             return 0;
 
-
-            String[] numbers = numbersString.Split(delimeters, StringSplitOptions.None);
+            String[] numbers = numbersString.Split(delimeters.ToArray(), StringSplitOptions.None);
 
             List<int> numbersToAdd = new List<int>();
-
 
             foreach(var number in numbers)
             {
@@ -50,25 +44,33 @@ namespace StringCalculatorKata
         }
 
 
-        private string[] GetCustomDelimeters( string numbersString )
+        private List<string> GetCustomDelimeters( string numbersString )
         {
 
             int delimeterStartIndex;
             int delimeterEndIndex;
 
-            var delimeters = new[] { ",", "\n" };
+            var delimeters = new List<string>() { ",", "\n" };
 
             delimeterStartIndex = numbersString.IndexOf('[') + 1;
             delimeterEndIndex = numbersString.IndexOf(']');
 
-            if (delimeterEndIndex > 0)
+            if ( delimeterEndIndex < 0 )
             {
-
-                delimeters[0] = numbersString.Substring(delimeterStartIndex, delimeterEndIndex - delimeterStartIndex);
+                delimeters = new List<string>() { numbersString[2].ToString() };
             }
             else
             {
-                delimeters = new string[] { numbersString[2].ToString() };
+                while ( delimeterEndIndex > 0 )
+                {
+                    delimeters.Add(numbersString.Substring(delimeterStartIndex, delimeterEndIndex - delimeterStartIndex));
+
+                    numbersString = numbersString.Substring(delimeterEndIndex + 1);
+
+                    delimeterStartIndex = numbersString.IndexOf('[') + 1;
+                    delimeterEndIndex = numbersString.IndexOf(']');
+                }
+                
             }
 
             return delimeters;
@@ -82,7 +84,7 @@ namespace StringCalculatorKata
             EndOfDelimetersIndex = numbersString.IndexOf('\n')+1;
                 
             
-            return( numbersString.Substring(EndOfDelimetersIndex));
+            return( numbersString.Substring(EndOfDelimetersIndex) );
         }
 
 
@@ -103,7 +105,7 @@ namespace StringCalculatorKata
 
         private Boolean  CustomDelimetersExist( string numbersString )
         {
-            return ( numbersString.Length > 1 && numbersString.Substring(0,2).Equals("//"));
+            return ( numbersString.Length > 1 && numbersString.Substring(0,2).Equals("//") );
         }
     }
 }
