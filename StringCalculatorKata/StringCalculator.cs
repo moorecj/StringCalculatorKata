@@ -12,17 +12,9 @@ namespace StringCalculatorKata
         public int Add( string numbersString )
         {
             var delimeters = new List<string>() { ",", "\n" };
-<<<<<<< HEAD
 
             if(CustomDelimetersExist (numbersString ))
             {
-=======
-            
-
-            if(CustomDelimetersExist (numbersString ))
-            {
-
->>>>>>> 4f21a5373b9d2ce48207e16acc7ed2afb3df863b
                 delimeters.AddRange(GetCustomDelimeters(numbersString));
                 numbersString = TruncateDelimetersFromString(numbersString);
             }
