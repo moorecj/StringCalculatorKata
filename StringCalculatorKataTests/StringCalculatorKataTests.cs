@@ -128,5 +128,26 @@ namespace StringCalculatorKataTests
 
        }
 
+       [Test]
+        public void MultipleCustomDelimetersCanBeUsed_ShouldResultInSum()
+       {
+           int sum = calculator.Add("//[*][%]\n1*2%3");
+
+           Assert.That(sum, Is.EqualTo(6));
+
+       }
+
+       [Test]
+       public void MultipleCustomDelimetersOfAnyLengthCanBeUsed_ShouldResultInSum()
+       {
+           int sum = calculator.Add("//[****][%%]\n1****2%%3");
+
+           Assert.That(sum, Is.EqualTo(6));
+
+       }
+
+
+
+
     }
 }
