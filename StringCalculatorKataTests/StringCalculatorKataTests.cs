@@ -146,11 +146,5 @@ namespace StringCalculatorKataTests
 
        }
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 4f21a5373b9d2ce48207e16acc7ed2afb3df863b
     }
 }
